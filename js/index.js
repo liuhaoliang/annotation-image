@@ -1,11 +1,10 @@
-var targetImage = $(".content img");
-var img = targetImage['0'];
+var img = document.getElementById('targetImage');
 var content = document.getElementsByClassName('content')[0];
 var points = [];
-var myCanvas = $("#myCanvas");
-var canvas = myCanvas['0'];
+var canvas = document.getElementById('myCanvas');
+var undo = document.getElementById('undo');
 
-myCanvas.click(function (e) {
+canvas.onclick=function(e) {
     var offsetX = e.offsetX;
     var offsetY = e.offsetY;
     var image = e.target;
@@ -18,7 +17,16 @@ myCanvas.click(function (e) {
         y: scaleY
     })
     draw(points);
-});
+};
+
+undo.onclick=function(e) {
+    if (points.length>0){
+        points.pop();
+        draw(points);
+    }
+};
+
+
 
 
 if (img.height==0){
@@ -28,10 +36,6 @@ if (img.height==0){
 }else{
     draw([])
 }
-
-
-
-
 
 function draw(points) {
 
