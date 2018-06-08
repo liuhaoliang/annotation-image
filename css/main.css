@@ -1,0 +1,48 @@
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    height: 100%;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left,
+.right {
+    flex: 0 0 100px;
+    background: #ddd;
+}
+
+.left ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.left li{
+    padding: 15px 5px;
+}
+
+.content img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.content{
+    position: relative;
+}
+
+#myCanvas{
+    position: absolute;
+    /* background: rebeccapurple; */
+}
