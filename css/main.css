@@ -49,5 +49,8 @@ body {
 #myCanvas {
     position: absolute;
     border: 1px solid black;
-    /* background: rebeccapurple; */
+}
+
+#myCanvas:hover {
+    cursor: crosshair;
 }
