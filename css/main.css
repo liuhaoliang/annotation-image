@@ -29,8 +29,12 @@ body {
     text-align: center;
 }
 
-.left li{
+.left li {
     padding: 15px 5px;
+}
+
+.left li:hover {
+    cursor: pointer;
 }
 
 .content img {
@@ -38,11 +42,12 @@ body {
     max-height: 80%;
 }
 
-.content{
+.content {
     position: relative;
 }
 
-#myCanvas{
+#myCanvas {
     position: absolute;
+    border: 1px solid black;
     /* background: rebeccapurple; */
 }
