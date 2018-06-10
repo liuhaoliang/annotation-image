@@ -1,7 +1,17 @@
+var imgs = [];
+var points = [];
+
 var img = document.getElementById('targetImage');
 var content = document.getElementsByClassName('content')[0];
-var points = [];
 var canvas = document.getElementById('myCanvas');
+
+var openFile = document.getElementById('openFile');
+var openDir = document.getElementById('openDir');
+var next = document.getElementById('next');
+var prev = document.getElementById('prev');
+var save = document.getElementById('save');
+
+next
 var undo = document.getElementById('undo');
 var clear = document.getElementById('clear');
 //设置接头半径
@@ -20,11 +30,9 @@ canvas.onclick = function (e) {
     var scaleX = offsetX / width;
     var scaleY = offsetY / height;
 
-
     points.forEach((point, idx) => {
-        var s = Math.pow((point.x-scaleX),2)+Math.pow((point.y-scaleY),2);
-        console.log('+++++'+s)
-        if (s<0.001) {
+        var s = Math.pow((point.x - scaleX), 2) + Math.pow((point.y - scaleY), 2);
+        if (s < eviation) {
             scaleX = point.x;
             scaleY = point.y;
         }
@@ -37,6 +45,68 @@ canvas.onclick = function (e) {
     draw(points);
 };
 
+
+
+//选择文件操作
+openFile.onclick = function (e) {
+    var inputObj = document.createElement('input')
+    inputObj.setAttribute('type', 'file');
+    inputObj.setAttribute('multiple', 'true');
+    inputObj.setAttribute('accept', 'image/png, image/jpeg, image/jpg');
+    inputObj.setAttribute("style", 'visibility:hidden');
+
+    document.body.appendChild(inputObj);
+    var imgs = [];
+    inputObj.onchange = function (e) {
+        readFiles(inputObj.files);
+    };
+    inputObj.click();
+};
+
+openDir.onclick = function (e) {
+    var inputObj = document.createElement('input')
+    inputObj.setAttribute('type', 'file');
+    inputObj.setAttribute('webkitdirectory', 'true');
+    inputObj.setAttribute('directory', 'true');
+    inputObj.setAttribute("style", 'visibility:hidden');
+    document.body.appendChild(inputObj);
+    var imgs = [];
+    inputObj.onchange = function (e) {
+        readFiles(inputObj.files);
+    };
+    inputObj.click();
+};
+
+let readFiles = function(files){
+    for (let key in files) {
+        let file = files[key];
+        if (typeof file == 'object' && /\.(jpe?g|png)$/i.test(file.name)){
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let imgFile = {
+                    name: file.name,
+                    src: e.target.result
+                };
+                imgs.push(imgFile);
+                console.log('++++++' + JSON.stringify(imgFile));
+            }
+            reader.readAsDataURL(file);
+        } 
+    }
+}
+
+next.onclick = function (e) {
+
+};
+
+prev.onclick = function (e) {
+
+};
+
+save.onclick = function (e) {
+
+};
+
 //撤销操作
 undo.onclick = function (e) {
     if (points.length > 0) {
@@ -47,7 +117,7 @@ undo.onclick = function (e) {
 
 //删除操作
 clear.onclick = function (e) {
-    points.splice(0,points.length);
+    points.splice(0, points.length);
     draw(points);
 };
 
@@ -78,7 +148,7 @@ function draw(points) {
             if (idx != 0) {
                 var nextArcX = point.x * canvas.width;
                 var nextArcY = point.y * canvas.height;
-                ctx.lineTo(nextArcX, nextArcY); 
+                ctx.lineTo(nextArcX, nextArcY);
             }
         });
         ctx.stroke();
